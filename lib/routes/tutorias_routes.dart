@@ -17,30 +17,22 @@ class ItemsAdaptor {
 
   @GET(url: "/tutores")
   Future<List<TutorModel>> getAllTutores() async {
-    return await getAllItems(
-        QuerysBd.selectAllDataQuery(table: tableTutoresName),
-        TutorModel.fromJsonToLocal);
+    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableTutoresName), TutorModel.fromJsonToLocal);
   }
 
   @GET(url: "/estudiantes")
   Future<List<EstudianteModel>> getAllEstudiantes() async {
-    return await getAllItems(
-        QuerysBd.selectAllDataQuery(table: tableEstudiantesName),
-        EstudianteModel.fromJsonBD);
+    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableEstudiantesName), EstudianteModel.fromJsonBD);
   }
 
   @GET(url: "/asignaturas")
   Future<List<AsignaturaModel>> getAllAsignaturas() async {
-    return await getAllItems(
-        QuerysBd.selectAllDataQuery(table: tableAsignaturasName),
-        AsignaturaModel.fromJsonBD);
+    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableAsignaturasName), AsignaturaModel.fromJsonBD);
   }
 
   @GET(url: "/tutorias")
   Future<List<TutoriaModels>> getAllTutorias() async {
-    return await getAllItems(
-        QuerysBd.selectAllDataQuery(table: tableTutoriasName),
-        TutoriaModels.fromJsonBD);
+    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableTutoriasName), TutoriaModels.fromJsonBD);
   }
 
   /* 
