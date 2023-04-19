@@ -1,8 +1,10 @@
 import 'package:annotated_shelf/annotated_shelf.dart';
 import 'package:tutotias_uni/db/conection_bd.dart';
 import 'package:tutotias_uni/helpers/querys_bd.dart';
+import 'package:tutotias_uni/models/asignatura_model.dart';
 import 'package:tutotias_uni/models/tutor_model.dart';
 import 'package:tutotias_uni/models/tutoria_models.dart';
+import 'package:tutotias_uni/models/estudiante_model.dart';
 
 List<String> itemsList = [];
 
@@ -10,15 +12,45 @@ List<String> itemsList = [];
 class ItemsAdaptor {
   final db = ConectionDb.conn;
 
-  @GET(url: "/")
-  Future<List<TutorModel>> getAllItems() async {
-    List<TutorModel> result = [];
-    print(QuerysBd.selectAllQuery());
-    final query = await db!.query(QuerysBd.selectAllQuery());
+  @GET(url: "/tutores")
+  Future<List<TutorModel>> getAllTutores() async {
+    return await getAllItems(
+        QuerysBd.selectAllTutoresQuery(), TutorModel.fromJson);
+  }
+
+  @GET(url: "/estudiantes")
+  Future<List<EstudianteModel>> getAllEstudiantes() async {
+    return await getAllItems(
+        QuerysBd.selectAllEstudiantesQuery(), EstudianteModel.fromJson);
+  }
+
+  @GET(url: "/asignaturas")
+  Future<List<AsignaturaModel>> getAllAsignaturas() async {
+    return await getAllItems(
+        QuerysBd.selectAllAsignaturasQuery(), AsignaturaModel.fromJson);
+  }
+
+  @GET(url: "/tutorias")
+  Future<List<TutoriaModels>> getAllTutorias() async {
+    return await getAllItems(
+        QuerysBd.selectAllTutoriasQuery(), TutoriaModels.fromJson);
+  }
+
+  /* 
+    Esta es una función genérica llamada getAllItems que toma dos argumentos: 
+    la consulta SQL y la función fromJson 
+    que se utilizará para convertir los resultados de la consulta en 
+    objetos de modelo.
+  */
+
+  Future<List<T>> getAllItems<T>(String sql, Function fromJson) async {
+    List<T> result = [];
+    print(sql);
+    final query = await db!.query(sql);
     print(query);
     for (var data in query) {
       print('Type: $data');
-      result.add(TutorModel.fromJson(data.fields));
+      result.add(fromJson(data.fields));
     }
 
     return result;
@@ -29,7 +61,7 @@ class ItemsAdaptor {
     print('Id: $id');
 
     try {
-      final list = await getAllItems();
+      final list = await getAllTutores();
       print('List: $list');
       list.removeWhere((element) => element.idTutor == id);
       return list;
@@ -51,15 +83,16 @@ class ItemsAdaptor {
 
   @POST(url: "/crear")
   Future<RestResponse> createNewItem(TutoriaModels item) async {
-    // print('tutoriaModel : $tutoriaModel');
+    // print('tutoriaModelsTutoriaModels : $tutoriaModelsTutoriaModels');
 
-    print('tutoriaModel : ${item.toJson()}');
+    print('tutoriaModelsTutoriaModels : ${item.toJson()}');
     // final query = await db!.query(
-    //     QuerysBd.insertQuery(values: tutoriaModel.stringValues, valuesToInsert: tutoriaModel.stringValuesToInsert, table: ''),
-    //     tutoriaModel.toListValuesInsert());
+    //     QuerysBd.insertQuery(values: tutoriaModelsTutoriaModels.stringValues, valuesToInsert: tutoriaModelsTutoriaModels.stringValuesToInsert, table: ''),
+    //     tutoriaModelsTutoriaModels.toListValuesInsert());
     // print(query);
 
-    return RestResponse(201, {"Response": "Tutoria Creada"}, 'application/json'); // pass a shelf response
+    return RestResponse(201, {"Response": "Tutoria Creada"},
+        'application/json'); // pass a shelf response
     // throw BadRequestError('item with name in list, $e');
   }
 
