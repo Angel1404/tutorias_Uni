@@ -36,6 +36,7 @@ class TutoriaModels extends Form {
       estado: map['estado'],
     );
   }
+
   factory TutoriaModels.fromJsonBD(Map<String, dynamic> map) {
     return TutoriaModels(
       idTutoria: map['id_tutoria'] ?? '',
@@ -49,6 +50,7 @@ class TutoriaModels extends Form {
       estado: map['estado'],
     );
   }
+  
   @override
   Map<String, dynamic> toJson() {
     return {

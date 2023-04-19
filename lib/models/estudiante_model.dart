@@ -8,7 +8,14 @@ class EstudianteModel extends Form {
 
   @override
   factory EstudianteModel.fromJson(Map<String, dynamic> map) {
-    return EstudianteModel(idEstudiante: map['id_estudiante'], nombre: map['nombre']);
+    return EstudianteModel(idEstudiante: map['idEstudiante'], nombre: map['nombre']);
+  }
+
+  factory EstudianteModel.fromJsonBD(Map<String, dynamic> map) {
+    return EstudianteModel(
+      idEstudiante: map['id_estudiante'] ?? '',
+      nombre: map['nombre'],
+    );
   }
 
   @override

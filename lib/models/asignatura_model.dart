@@ -9,7 +9,14 @@ class AsignaturaModel extends Form {
   @override
   factory AsignaturaModel.fromJson(Map<String, dynamic> map) {
     return AsignaturaModel(
-        idAsignatura: map['id_asignatura'], nombre: map['nombre']);
+        idAsignatura: map['idAsignatura'], nombre: map['nombre']);
+  }
+
+  factory AsignaturaModel.fromJsonBD(Map<String, dynamic> map) {
+    return AsignaturaModel(
+      idAsignatura: map['id_asignatura'] ?? '',
+      nombre: map['nombre'],
+    );
   }
 
   @override

@@ -8,7 +8,14 @@ class TutorModel extends Form {
 
   @override
   factory TutorModel.fromJson(Map<String, dynamic> map) {
-    return TutorModel(idTutor: map['id_tutor'], nombre: map['nombre']);
+    return TutorModel(idTutor: map['idTutor'], nombre: map['nombre']);
+  }
+
+  factory TutorModel.fromJsonBD(Map<String, dynamic> map) {
+    return TutorModel(
+      idTutor: map['id_tutor'] ?? '',
+      nombre: map['nombre'],
+    );
   }
 
   @override
