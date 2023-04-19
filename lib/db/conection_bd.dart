@@ -5,8 +5,8 @@ class ConectionDb {
 
   static connection() async {
     try {
-      var settings = ConnectionSettings(host: 'localhost', port: 3306, user: 'root', db: 'modtutorias');
-      conn = await MySqlConnection.connect(settings);
+      var settings = ConnectionSettings(host: 'localhost', port: 3306, user: 'root', db: 'modtutorias'); //Setting para la conexion
+      conn = await MySqlConnection.connect(settings); //Conexion
 
       print('COnection DB : $conn');
     } catch (e) {

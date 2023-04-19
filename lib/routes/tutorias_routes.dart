@@ -18,7 +18,21 @@ class ItemsAdaptor {
     print(query);
     for (var data in query) {
       print('Type: $data');
-      result.add(TutorModel.fromJson(data.fields));
+      result.add(TutorModel.fromJsonToLocal(data.fields));
+    }
+
+    return result;
+  }
+
+  @GET(url: "/asignatura")
+  Future<List<TutorModel>> getAllAsignaturas() async {
+    List<TutorModel> result = [];
+    print(QuerysBd.selectAllQuery());
+    final query = await db!.query(QuerysBd.selectAllQuery());
+    print(query);
+    for (var data in query) {
+      print('Type: $data');
+      result.add(TutorModel.fromJsonToLocal(data.fields));
     }
 
     return result;

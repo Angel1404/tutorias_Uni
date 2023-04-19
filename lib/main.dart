@@ -6,12 +6,12 @@ import 'package:tutotias_uni/routes/tutorias_routes.dart';
 
 class MainApp {
   static initApp() async {
-    var router = Cascade();
-    await ConectionDb.connection();
-    router = await mount(ItemsAdaptor(), router);
-    router = await mount(ItemsAdaptor(), router);
+    var router = Cascade(); // inicializa Cascade de rutas del server
+    await ConectionDb.connection(); //Hacemos la conexion a la bd
+    router = await mount(ItemsAdaptor(), router); // agg al cascade de router las rutas de nuestro server
 
-    var server = await io.serve(router.handler, 'localhost', 3000);
+    var server = await io.serve(
+        router.handler, 'localhost', 3000); //Inicializamos el server para que escuche las rutas de la app en el puerto y host designados
 
     // var handler = const Pipeline().addMiddleware(logRequests()).addMiddleware((innerHandler) => null).addHandler(router.handler);
 

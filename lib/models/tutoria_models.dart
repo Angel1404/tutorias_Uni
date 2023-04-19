@@ -36,12 +36,13 @@ class TutoriaModels extends Form {
       estado: map['estado'],
     );
   }
+
   factory TutoriaModels.fromJsonBD(Map<String, dynamic> map) {
     return TutoriaModels(
       idTutoria: map['id_tutoria'] ?? '',
-      idEstudiante: map['idEstudiante'],
-      idTutor: map['idTutor'],
-      idAsignatura: map['idAsignatura'],
+      idEstudiante: map['id_estudiante'],
+      idTutor: map['id_tutor'],
+      idAsignatura: map['id_asignatura'],
       tema: map['tema'],
       fecha: DateTime.parse(map['fecha']),
       duracion: map['duracion'],
