@@ -1,11 +1,12 @@
 import 'package:annotated_shelf/annotated_shelf.dart';
 
-class TutorModel extends Payload {
+class TutorModel extends Form {
   final int idTutor;
   final String nombre;
 
   TutorModel({required this.idTutor, required this.nombre});
 
+  @override
   factory TutorModel.fromJson(Map<String, dynamic> map) {
     return TutorModel(idTutor: map['id_tutor'], nombre: map['nombre']);
   }
@@ -18,5 +19,15 @@ class TutorModel extends Payload {
     };
   }
 
-  String nameTable = 'tutor';
+  List<Object?> toListValuesInsert() {
+    return [
+      nombre,
+    ];
+  }
+
+  String stringValues = '(?)';
+
+  String stringValuesToInsert = '(nombre)';
+
+  String nameTable = 'tutores';
 }
