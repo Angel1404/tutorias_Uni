@@ -2,3 +2,5 @@
 
 const tableTutoriasName = 'tutorias';
 const tableTutoresName = 'tutores';
+const tableEstudiantesName = 'estudiantes';
+const tableAsignaturasName = 'asignaturas';

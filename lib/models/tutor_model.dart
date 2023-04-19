@@ -28,5 +28,15 @@ class TutorModel extends Form {
     };
   }
 
-  String nameTable = 'tutor';
+  List<Object?> toListValuesInsert() {
+    return [
+      nombre,
+    ];
+  }
+
+  String stringValues = '(?)';
+
+  String stringValuesToInsert = '(nombre)';
+
+  String nameTable = 'tutores';
 }
