@@ -50,7 +50,7 @@ class TutoriaModels extends Form {
       estado: map['estado'],
     );
   }
-  
+
   @override
   Map<String, dynamic> toJson() {
     return {
@@ -81,7 +81,7 @@ class TutoriaModels extends Form {
 
   String stringValues = '(?,?,?,?,?,?,?,?)';
 
-  String stringValuesToInsert = '(idEstudiante, idTutor, idAsignatura, tema, fecha, duracion, comentario, estado)';
+  String stringValuesToInsert = '(id_estudiante, id_tutor, id_asignatura, tema, fecha, duracion, comentario, estado)';
 
   String nameTable = 'tutorias';
 }

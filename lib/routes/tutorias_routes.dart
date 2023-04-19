@@ -1,5 +1,6 @@
 import 'package:annotated_shelf/annotated_shelf.dart';
 import 'package:tutotias_uni/db/conection_bd.dart';
+import 'package:tutotias_uni/helpers/names_tables.dart';
 import 'package:tutotias_uni/helpers/querys_bd.dart';
 import 'package:tutotias_uni/models/asignatura_model.dart';
 import 'package:tutotias_uni/models/tutor_model.dart';
@@ -12,24 +13,26 @@ List<String> itemsList = [];
 class ItemsAdaptor {
   final db = ConectionDb.conn;
 
+  /// POSDATA: Todos los Get ban con el metodo factory que no tiene el Override.
+
   @GET(url: "/tutores")
   Future<List<TutorModel>> getAllTutores() async {
-    return await getAllItems(QuerysBd.selectAllTutoresQuery(), TutorModel.fromJson);
+    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableTutoresName), TutorModel.fromJsonToLocal);
   }
 
   @GET(url: "/estudiantes")
   Future<List<EstudianteModel>> getAllEstudiantes() async {
-    return await getAllItems(QuerysBd.selectAllEstudiantesQuery(), EstudianteModel.fromJson);
+    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableEstudiantesName), EstudianteModel.fromJsonBD);
   }
 
   @GET(url: "/asignaturas")
   Future<List<AsignaturaModel>> getAllAsignaturas() async {
-    return await getAllItems(QuerysBd.selectAllAsignaturasQuery(), AsignaturaModel.fromJson);
+    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableAsignaturasName), AsignaturaModel.fromJsonBD);
   }
 
   @GET(url: "/tutorias")
   Future<List<TutoriaModels>> getAllTutorias() async {
-    return await getAllItems(QuerysBd.selectAllTutoriasQuery(), TutoriaModels.fromJson);
+    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableTutoriasName), TutoriaModels.fromJsonBD);
   }
 
   /* 
@@ -77,18 +80,30 @@ class ItemsAdaptor {
     }
   }
 
+  /*
+    
+    TODO: Post para crear cualquiera, listo.
+    Solo basta con cambiar el modelo al cual apuntar y pasar el parametro por la funcion:
+
+    TODO: QuerysBd.insertQuery();
+
+    donde values: Son la cantidad de valores que se van a insertar en interrogativa Ej. (?,?,?)
+    donde valuesToInsert: son los valores que se van a insertar en orden a los interrogantes.    
+    donde item.toListValuesInsert() : Es el mapa de los valores con datos que se van a insertar en orden a los valuesToInser y values.
+
+  */
+
   @POST(url: "/crear")
   Future<RestResponse> createNewItem(TutoriaModels item) async {
-    // print('tutoriaModelsTutoriaModels : $tutoriaModelsTutoriaModels');
+    try {
+      final query =
+          await db!.query(QuerysBd.insertQuery(values: item.stringValues, valuesToInsert: item.stringValuesToInsert), item.toListValuesInsert());
+      print(query);
 
-    print('tutoriaModelsTutoriaModels : ${item.toJson()}');
-    // final query = await db!.query(
-    //     QuerysBd.insertQuery(values: tutoriaModelsTutoriaModels.stringValues, valuesToInsert: tutoriaModelsTutoriaModels.stringValuesToInsert, table: ''),
-    //     tutoriaModelsTutoriaModels.toListValuesInsert());
-    // print(query);
-
-    return RestResponse(201, {"Response": "Tutoria Creada"}, 'application/json'); // pass a shelf response
-    // throw BadRequestError('item with name in list, $e');
+      return RestResponse(201, {"Response": "Tutoria Creada"}, 'application/json'); // pass a shelf response
+    } catch (e) {
+      throw BadRequestError('item with name in list, $e');
+    }
   }
 
   // examplo of uploading a file
