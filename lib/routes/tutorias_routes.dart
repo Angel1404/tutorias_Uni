@@ -93,14 +93,69 @@ class ItemsAdaptor {
 
   */
 
-  @POST(url: "/crear")
-  Future<RestResponse> createNewItem(TutoriaModels item) async {
+  @POST(url: "/crearTutoria")
+  Future<RestResponse> createNewTutoria(TutoriaModels item) async {
     try {
-      final query =
-          await db!.query(QuerysBd.insertQuery(values: item.stringValues, valuesToInsert: item.stringValuesToInsert), item.toListValuesInsert());
+      final query = await db!.query(
+          QuerysBd.insertQuery(
+              table: 'tutorias',
+              values: item.stringValues,
+              valuesToInsert: item.stringValuesToInsert),
+          item.toListValuesInsert());
       print(query);
+      return RestResponse(201, {"Response": "Tutoria Creada"},
+          'application/json'); // pass a shelf response
+    } catch (e) {
+      throw BadRequestError('item with name in list, $e');
+    }
+  }
 
-      return RestResponse(201, {"Response": "Tutoria Creada"}, 'application/json'); // pass a shelf response
+  @POST(url: "/crearTutor")
+  Future<RestResponse> createNewTutor(TutorModel item) async {
+    try {
+      final query = await db!.query(
+          QuerysBd.insertQuery(
+              table: 'tutores',
+              values: item.stringValues,
+              valuesToInsert: item.stringValuesToInsert),
+          item.toListValuesInsert());
+      print(query);
+      return RestResponse(201, {"Response": "Tutor Creado"},
+          'application/json'); // pass a shelf response
+    } catch (e) {
+      throw BadRequestError('item with name in list, $e');
+    }
+  }
+
+  @POST(url: "/crearAsignatura")
+  Future<RestResponse> createNewAsignatura(AsignaturaModel item) async {
+    try {
+      final query = await db!.query(
+          QuerysBd.insertQuery(
+              table: 'asignaturas',
+              values: item.stringValues,
+              valuesToInsert: item.stringValuesToInsert),
+          item.toListValuesInsert());
+      print(query);
+      return RestResponse(201, {"Response": "Asignatura Creada"},
+          'application/json'); // pass a shelf response
+    } catch (e) {
+      throw BadRequestError('item with name in list, $e');
+    }
+  }
+
+  @POST(url: "/crearEstudiante")
+  Future<RestResponse> createNewEstudiante(EstudianteModel item) async {
+    try {
+      final query = await db!.query(
+          QuerysBd.insertQuery(
+              table: 'estudiantes',
+              values: item.stringValues,
+              valuesToInsert: item.stringValuesToInsert),
+          item.toListValuesInsert());
+      print(query);
+      return RestResponse(201, {"Response": "Estudiante Creado"},
+          'application/json'); // pass a shelf response
     } catch (e) {
       throw BadRequestError('item with name in list, $e');
     }
