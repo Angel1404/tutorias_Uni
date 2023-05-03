@@ -26,14 +26,14 @@ class TutoriaModels extends Form {
   @override
   factory TutoriaModels.fromJson(Map<String, dynamic> map) {
     return TutoriaModels(
-      idEstudiante: map['idEstudiante'],
-      idTutor: map['idTutor'],
-      idAsignatura: map['idAsignatura'],
+      idEstudiante: map['idEstudiante'] ?? 0,
+      idTutor: map['idTutor'] ?? 0,
+      idAsignatura: map['idAsignatura'] ?? 0,
       tema: map['tema'],
       fecha: DateTime.parse(map['fecha']),
       duracion: map['duracion'],
       comentario: map['comentario'],
-      estado: map['estado'],
+      estado: map['estado'] ?? 1,
     );
   }
 
@@ -44,7 +44,7 @@ class TutoriaModels extends Form {
       idTutor: map['id_tutor'],
       idAsignatura: map['id_asignatura'],
       tema: map['tema'],
-      fecha: DateTime.parse(map['fecha']),
+      fecha: map['fecha'],
       duracion: map['duracion'],
       comentario: map['comentario'],
       estado: map['estado'],
@@ -79,9 +79,26 @@ class TutoriaModels extends Form {
     ];
   }
 
+  List<Object?> toListValuesUpdate() {
+    return [
+      tema,
+      fecha,
+      duracion,
+      comentario,
+    ];
+  }
+
   String stringValues = '(?,?,?,?,?,?,?,?)';
 
   String stringValuesToInsert = '(id_estudiante, id_tutor, id_asignatura, tema, fecha, duracion, comentario, estado)';
 
   String nameTable = 'tutorias';
+
+  String updateValues() {
+    return "tema=?, fecha=?, duracion=?, comentario=?";
+  }
+
+  String deleteValues() {
+    return ' estado = 0';
+  }
 }
