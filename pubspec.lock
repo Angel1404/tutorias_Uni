@@ -21,10 +21,10 @@ packages:
     dependency: "direct main"
     description:
       name: annotated_shelf
-      sha256: "9f306de4d701e22a9b51e970bb786fc05b411fa329d33088cfc7df9a71c85ecc"
+      sha256: "6781dbd162f654038a2381b47efcd45586e07068d7ca8985a46b03dd005a19f0"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.7"
+    version: "0.1.0"
   args:
     dependency: transitive
     description:

@@ -13,8 +13,14 @@ class TutoriasRoutes {
   final db = ConectionDb.conn;
 
   @GET(url: "/")
-  Future<List<TutoriaModels>> getAllTutorias() async {
-    return await getAllItems(QuerysBd.selectAllDataQuery(table: tableTutoriasName), TutoriaModels.fromJsonBD, db: db);
+  Future<RestResponse> getAllTutorias() async {
+    try {
+      final List<TutoriaModels> responseBD =
+          await getAllItems(QuerysBd.selectAllDataQuery(table: tableTutoriasName), TutoriaModels.fromJsonBD, db: db);
+      return RestResponse(200, responseBD, 'application/json');
+    } catch (e) {
+      return RestResponse(404, {"error": e}, 'application/json');
+    }
   }
 
   @GET(url: "/<id>")

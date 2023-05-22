@@ -26,9 +26,9 @@ class TutoriaModels extends Form {
   @override
   factory TutoriaModels.fromJson(Map<String, dynamic> map) {
     return TutoriaModels(
-      idEstudiante: map['idEstudiante'] ?? 0,
-      idTutor: map['idTutor'] ?? 0,
-      idAsignatura: map['idAsignatura'] ?? 0,
+      idEstudiante: map['idEstudiante'] ?? 1,
+      idTutor: map['idTutor'] ?? 1,
+      idAsignatura: map['idAsignatura'] ?? 1,
       tema: map['tema'],
       fecha: DateTime.parse(map['fecha']),
       duracion: map['duracion'],
